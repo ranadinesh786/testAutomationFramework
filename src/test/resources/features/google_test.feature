@@ -1,5 +1,5 @@
 @smoke
-Feature: Google Test
+Feature: google_test
 
   Scenario: Open Google and verify title
     Given I open the Google Chrome browser

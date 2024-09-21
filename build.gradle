@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id "net.serenity-bdd.serenity-gradle-plugin" version "4.2.1"
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.2.1'
 }
 
 group = 'org.example'
@@ -11,18 +11,15 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.seleniumhq.selenium:selenium-java:4.11.0' // Update to the latest version
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.11.0'
     testImplementation 'net.serenity-bdd:serenity-core:4.2.1'
-    testImplementation 'io.cucumber:cucumber-java:7.13.0' // Update to the latest version
+    testImplementation 'io.cucumber:cucumber-java:7.18.1'
     testImplementation 'net.serenity-bdd:serenity-junit:4.2.1'
     testImplementation 'net.serenity-bdd:serenity-cucumber:4.2.1'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0' // Update to the latest version
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
     testImplementation 'io.github.bonigarcia:webdrivermanager:5.5.3'
-    testImplementation 'org.assertj:assertj-core:3.24.2' // Add AssertJ dependency
-    testImplementation 'net.serenity-bdd:serenity-gradle-plugin:2.4.34'
-    testImplementation 'io.cucumber:cucumber-java:7.18.1'
-    testImplementation 'io.cucumber:cucumber-junit:7.18.1'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
 }
 
 test {
@@ -35,4 +32,16 @@ test {
 
 serenity {
     outputDirectory = file("target/serenity-reports")
+}
+
+task cucumberTest(type: Test) {
+    useJUnitPlatform()
+    systemProperty 'cucumber.filter.tags', System.getProperty('cucumber.filter.tags', '')
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    outputs.upToDateWhen { false }
+    doFirst {
+        println "Running tests with tags: ${System.getProperty('cucumber.filter.tags', '')}"
+    }
 }

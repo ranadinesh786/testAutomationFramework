@@ -7,11 +7,11 @@ import org.junit.runner.RunWith;
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
         features = "src/test/resources/features/",
-        glue = {"steps"}, // Correct package name for step definitions
+        glue = {"steps","stepDefinition"},
         plugin = {"pretty"},
         publish = true,
-        tags = "@smoke"
+        tags = "@smoke" // This will be overridden by the Gradle command
 )
 public class SimpleRun {
-    // Additional test configurations or methods can be added here
+    // No additional configurations are necessary for basic setup
 }
